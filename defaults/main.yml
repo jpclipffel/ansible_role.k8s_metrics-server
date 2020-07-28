@@ -1,0 +1,5 @@
+# Metrics Server version
+k8s_metricsserver_version: "0.3.7"
+
+# Metrics Server manifest
+k8s_metricsserver_manifest: "https://github.com/kubernetes-sigs/metrics-server/releases/download/v{{ k8s_metricsserver_version }}/components.yaml"

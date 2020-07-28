@@ -1,0 +1,40 @@
+- name: Assertions
+  assert:
+    that:
+      - k8s_primary_master_name is defined
+      - k8s_node_type is defined
+  tags: [never, apply, delete]
+
+
+- name: Apply metrics-server
+  k8s:
+    resource_definition: "{{ lookup('template', 'components-' + k8s_metricsserver_version + '.yml.j2') }}"
+    state: present
+  when:
+    - inventory_hostname == k8s_primary_master_name
+  tags: [never, apply]
+
+
+- name: Delete metrics-server
+  k8s:
+    resource_definition: "{{ lookup('template', 'components-' + k8s_metricsserver_version + '.yml.j2') }}"
+    state: absent
+  when:
+    - inventory_hostname == k8s_primary_master_name
+  tags: [never, delete]
+
+
+# - name: Apply metrics-server
+#   shell: >
+#     kubectl apply -f "{{ k8s_metricsserver_manifest }}"
+#   when:
+#     - inventory_hostname == k8s_primary_master_name
+#   tags: [never, apply]
+
+
+# - name: Delete metrics-server
+#   shell: >
+#     kubectl delete -f "{{ k8s_metricsserver_manifest }}"
+#   when:
+#     - inventory_hostname == k8s_primary_master_name
+#   tags: [never, delete]

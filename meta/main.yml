@@ -1,0 +1,3 @@
+galaxy_info:
+  role_name: k8s_metrics-server
+  description: Manages metrics-server on Kubernetes clusters
